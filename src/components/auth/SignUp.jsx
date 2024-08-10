@@ -8,9 +8,15 @@ import { useState } from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
+
   const [input, setInput] = useState({
     fullname: "",
     email: "",
@@ -40,16 +46,13 @@ const SignUp = () => {
       formData.append("file", input.file);
     }
     try {
-      const res = await axios.post(
-        `${USER_API_END_POINT}/register1`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      dispatch(setLoading(true));
+      const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
       if (res.data?.success) {
         console.log("zitu", res);
         navigate("/login");
@@ -58,6 +61,8 @@ const SignUp = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -147,9 +152,17 @@ const SignUp = () => {
               />
             </div>
           </div>
-          <Button type="submit" className="w-full my-4">
-            Sign Up
-          </Button>
+          {loading ? (
+            <Button className="w-full my-4">
+              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+              Please wait
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-4">
+              Sign Up
+            </Button>
+          )}
+
           <span className="text-sm">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-600">
