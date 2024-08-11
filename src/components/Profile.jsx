@@ -3,14 +3,17 @@ import Navbar from "./shared/Navbar";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { Label } from "./ui/label";
+import AppliedJobTable from "./AppliedJobTable";
 
 const skills = ["HTML", "CSS", "JavaScript", "React", "Node.js"];
 
 const Profile = () => {
+  const isResume = true;
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto my-5 p-8 bg-white border border-gray-200 rounded-2xl">
+      <div className="max-w-4xl mx-auto my-5 p-8 bg-white border border-gray-200 rounded-2xl">
         <div className="flex justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="h-24 w-24">
@@ -51,6 +54,24 @@ const Profile = () => {
             )}
           </div>
         </div>
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label>Resume</Label>
+          {isResume ? (
+            <a
+              className="w-full text-blue-500 hover:underline cursor-pointer"
+              href="https://drive.google.com/file/d/1IArrH-V2QL4V8X12wFoHLreC-1hF1720/view?usp=sharing"
+              target="_blank"
+            >
+              Resume
+            </a>
+          ) : (
+            <span>N/A</span>
+          )}
+        </div>
+      </div>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <h1 className="font-bold text-lg p-3">Applied Jobs</h1>
+        <AppliedJobTable />
       </div>
     </div>
   );
