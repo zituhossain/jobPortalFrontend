@@ -5,11 +5,16 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
+import { useState } from "react";
+import UpdateProfileDialog from "./UpdateProfileDialog";
+import { useSelector } from "react-redux";
 
-const skills = ["HTML", "CSS", "JavaScript", "React", "Node.js"];
-
+// const skills = ["HTML", "CSS", "JavaScript", "React", "Node.js"];
+const isResume = true;
 const Profile = () => {
-  const isResume = true;
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((store) => store.auth);
+
   return (
     <div>
       <Navbar />
@@ -23,32 +28,31 @@ const Profile = () => {
               />
             </Avatar>
             <div>
-              <h1>Full Name</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptates, laboriosam facere totam beatae praesentium maxime.
-              </p>
+              <h1 className="text-xl font-medium">{user?.fullName}</h1>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
-          <Button variant="outline">
+          <Button onClick={() => setOpen(true)} variant="outline">
             <Pen />
           </Button>
         </div>
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
-            <span>zitu@gmail.com</span>
+            <span>{user?.email}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>1234567890</span>
+            <span>{user?.phoneNumber}</span>
           </div>
         </div>
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-1">
-            {skills.length !== 0 ? (
-              skills.map((item, index) => <Badge key={index}>{item}</Badge>)
+            {user?.profile?.skills.length !== 0 ? (
+              user?.profile?.skills.map((item, index) => (
+                <Badge key={index}>{item}</Badge>
+              ))
             ) : (
               <p>N/A</p>
             )}
@@ -59,10 +63,10 @@ const Profile = () => {
           {isResume ? (
             <a
               className="w-full text-blue-500 hover:underline cursor-pointer"
-              href="https://drive.google.com/file/d/1IArrH-V2QL4V8X12wFoHLreC-1hF1720/view?usp=sharing"
+              href={user?.profile?.resume}
               target="_blank"
             >
-              Resume
+              {user?.profile?.resumeOriginalName}
             </a>
           ) : (
             <span>N/A</span>
@@ -73,6 +77,8 @@ const Profile = () => {
         <h1 className="font-bold text-lg p-3">Applied Jobs</h1>
         <AppliedJobTable />
       </div>
+
+      <UpdateProfileDialog open={open} setOpen={setOpen} />
     </div>
   );
 };

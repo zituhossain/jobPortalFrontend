@@ -18,7 +18,7 @@ const SignUp = () => {
   const { loading } = useSelector((state) => state.auth);
 
   const [input, setInput] = useState({
-    fullname: "",
+    fullName: "",
     email: "",
     phoneNumber: "",
     password: "",
@@ -37,7 +37,7 @@ const SignUp = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("fullname", input.fullname);
+    formData.append("fullName", input.fullName);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("password", input.password);
@@ -79,8 +79,8 @@ const SignUp = () => {
             <Label>Full Name</Label>
             <Input
               type="text"
-              name="fullname"
-              value={input.fullname}
+              name="fullName"
+              value={input.fullName}
               onChange={changeEventHandler}
               placeholder="Full Name"
             />
