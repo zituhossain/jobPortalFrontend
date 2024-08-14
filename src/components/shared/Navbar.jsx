@@ -1,13 +1,13 @@
+import { logout } from "@/redux/authSlice";
+import { USER_API_END_POINT } from "@/utils/constant";
+import axios from "axios";
 import { LogOut, User2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { setUser } from "@/redux/authSlice";
-import { toast } from "sonner";
-import { USER_API_END_POINT } from "@/utils/constant";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -20,7 +20,7 @@ const Navbar = () => {
         withCredentials: true,
       });
       if (res.data?.success) {
-        dispatch(setUser(null));
+        dispatch(logout());
         navigate("/");
         toast.success(res.data.message);
       }
@@ -67,7 +67,11 @@ const Navbar = () => {
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src={user?.profile?.profilePhoto}
+                    src={
+                      user?.profile?.profilePhoto
+                        ? user?.profile?.profilePhoto
+                        : "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                    }
                     alt="@shadcn"
                   />
                 </Avatar>
@@ -77,7 +81,11 @@ const Navbar = () => {
                   <div className="flex gap-4 ">
                     <Avatar className="cursor-pointer">
                       <AvatarImage
-                        src={user?.profile?.profilePhoto}
+                        src={
+                          user?.profile?.profilePhoto === ""
+                            ? "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                            : user?.profile?.profilePhoto
+                        }
                         alt="@shadcn"
                       />
                     </Avatar>

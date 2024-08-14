@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -23,6 +23,12 @@ const Login = () => {
     role: "",
   });
 
+  const { user } = useSelector((state) => state.auth);
+
+  if (user) {
+    // If the user is authenticated, redirect to the homepage or profile page
+    return <Navigate to="/" />;
+  }
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -39,7 +45,7 @@ const Login = () => {
       });
       if (res.data?.success) {
         dispatch(setUser(res.data?.user));
-        navigate("/");
+        navigate("/", { replace: true });
         toast.success(res.data.message);
       }
     } catch (error) {
