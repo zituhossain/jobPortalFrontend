@@ -7,6 +7,9 @@ import Browse from "../components/Browse";
 import Profile from "../components/Profile";
 import JobDescription from "../components/JobDescription";
 import ProtectedRoute from "./ProtectedRoute";
+import Companies from "@/components/admin/Companies";
+import CompanyCreate from "@/components/admin/CompanyCreate";
+import CompanySetup from "@/components/admin/CompanySetup";
 
 export const router = createBrowserRouter([
   {
@@ -40,5 +43,19 @@ export const router = createBrowserRouter([
         <Profile />
       </ProtectedRoute>
     ),
+  },
+
+  // Admin Routes
+  {
+    path: "admin/companies",
+    element: <Companies />,
+  },
+  {
+    path: "admin/companies/create",
+    element: <CompanyCreate />,
+  },
+  {
+    path: "admin/companies/:id",
+    element: <CompanySetup />,
   },
 ]);

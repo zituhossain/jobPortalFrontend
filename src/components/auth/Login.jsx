@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
     email: "",
@@ -23,7 +23,7 @@ const Login = () => {
     role: "",
   });
 
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((store) => store.auth);
 
   if (user) {
     // If the user is authenticated, redirect to the homepage or profile page
