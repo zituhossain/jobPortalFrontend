@@ -13,6 +13,7 @@ import CompanySetup from "@/components/admin/CompanySetup";
 import AdminJobs from "@/components/admin/AdminJobs";
 import PostAdminJob from "@/components/admin/PostAdminJob";
 import Applicants from "@/components/admin/Applicants";
+import ProtectedAdminRoute from "./ProtectedAdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -51,26 +52,50 @@ export const router = createBrowserRouter([
   // Admin Routes
   {
     path: "admin/companies",
-    element: <Companies />,
+    element: (
+      <ProtectedAdminRoute>
+        <Companies />
+      </ProtectedAdminRoute>
+    ),
   },
   {
     path: "admin/companies/create",
-    element: <CompanyCreate />,
+    element: (
+      <ProtectedAdminRoute>
+        <CompanyCreate />
+      </ProtectedAdminRoute>
+    ),
   },
   {
     path: "admin/companies/:id",
-    element: <CompanySetup />,
+    element: (
+      <ProtectedAdminRoute>
+        <CompanySetup />
+      </ProtectedAdminRoute>
+    ),
   },
   {
     path: "admin/jobs",
-    element: <AdminJobs />,
+    element: (
+      <ProtectedAdminRoute>
+        <AdminJobs />
+      </ProtectedAdminRoute>
+    ),
   },
   {
     path: "admin/jobs/create",
-    element: <PostAdminJob />,
+    element: (
+      <ProtectedAdminRoute>
+        <PostAdminJob />
+      </ProtectedAdminRoute>
+    ),
   },
   {
     path: "admin/jobs/:id/applicants",
-    element: <Applicants />,
+    element: (
+      <ProtectedAdminRoute>
+        <Applicants />
+      </ProtectedAdminRoute>
+    ),
   },
 ]);
