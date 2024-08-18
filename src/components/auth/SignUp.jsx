@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, user } = useSelector((state) => state.auth);
 
   const [input, setInput] = useState({
     fullName: "",
@@ -65,6 +65,13 @@ const SignUp = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      // If the user is authenticated, redirect to the homepage or profile page
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

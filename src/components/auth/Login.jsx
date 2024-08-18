@@ -1,21 +1,21 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { setLoading, setUser } from "@/redux/authSlice";
+import { USER_API_END_POINT } from "@/utils/constant";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import Navbar from "../shared/Navbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
-import { useState } from "react";
-import axios from "axios";
-import { USER_API_END_POINT } from "@/utils/constant";
-import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setUser } from "@/redux/authSlice";
-import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
     email: "",
@@ -23,12 +23,6 @@ const Login = () => {
     role: "",
   });
 
-  const { user } = useSelector((store) => store.auth);
-
-  if (user) {
-    // If the user is authenticated, redirect to the homepage or profile page
-    return <Navigate to="/" />;
-  }
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -55,6 +49,13 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      // If the user is authenticated, redirect to the homepage or profile page
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

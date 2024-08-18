@@ -1,16 +1,22 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FilterCard from "./FilterCard";
 import Job from "./Job";
 import Navbar from "./shared/Navbar";
 import { useEffect, useState } from "react";
-
-// const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8];
-
+import { setSearchedQuery } from "@/redux/jobSlice";
+import { motion } from "framer-motion";
 const Jobs = () => {
+  const dispatch = useDispatch();
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState([]);
 
   useEffect(() => {
+    dispatch(setSearchedQuery(""));
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Update filtered jobs based on searchedQuery
+
     const filteredJobs =
       (allJobs?.length > 0 &&
         allJobs.filter((job) => {
@@ -23,7 +29,7 @@ const Jobs = () => {
       [];
 
     setFilterJobs(filteredJobs);
-  }, [searchedQuery]);
+  }, [searchedQuery, allJobs]);
 
   return (
     <div>
@@ -39,9 +45,15 @@ const Jobs = () => {
             <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
               <div className="grid grid-cols-3 gap-4">
                 {filterJobs.map((job) => (
-                  <div key={job._id}>
+                  <motion.div
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    key={job._id}
+                  >
                     <Job job={job} />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
