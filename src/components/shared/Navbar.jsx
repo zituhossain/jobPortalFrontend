@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <>
       <div className="bg-white flex items-center justify-between mx-auto max-w-7xl h-16">
-        <div>
+        <div onClick={() => navigate("/")} className="cursor-pointer">
           <h1 className="text-3xl font-bold">
             Job<span className="text-[#f83002]">Portal</span>
           </h1>
@@ -80,11 +80,7 @@ const Navbar = () => {
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src={
-                      user?.profile?.profilePhoto
-                        ? user?.profile?.profilePhoto
-                        : "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-                    }
+                    src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                   />
                 </Avatar>
@@ -94,11 +90,7 @@ const Navbar = () => {
                   <div className="flex gap-4 ">
                     <Avatar className="cursor-pointer">
                       <AvatarImage
-                        src={
-                          user?.profile?.profilePhoto === ""
-                            ? "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-                            : user?.profile?.profilePhoto
-                        }
+                        src={user?.profile?.profilePhoto}
                         alt="@shadcn"
                       />
                     </Avatar>

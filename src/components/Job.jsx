@@ -36,10 +36,7 @@ const Job = ({ job }) => {
       <div className="flex items-center gap-2 my-2">
         <Button className="p-6" variant="ghost" size="icon">
           <Avatar>
-            <AvatarImage
-              src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-              alt="@shadcn"
-            />
+            <AvatarImage src={job?.company?.logo} alt="@shadcn" />
           </Avatar>
         </Button>
         <div>
@@ -49,7 +46,7 @@ const Job = ({ job }) => {
       </div>
 
       <div>
-        <h1 className="text-lg font-bold my-2">Job Title</h1>
+        <h1 className="text-lg font-bold my-2">{job?.title}</h1>
         <p className="text-gray-600 text-sm">{job?.description}</p>
       </div>
       <div className="flex gap-2 items-center mt-4">

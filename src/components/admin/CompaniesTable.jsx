@@ -20,17 +20,18 @@ const CompaniesTable = () => {
   const { companies, searchCompanyByText } = useSelector(
     (store) => store.company
   );
-  const [filterCompany, setFilterCompany] = useState(companies);
+  const [filterCompany, setFilterCompany] = useState([]);
 
   useEffect(() => {
     const filteredCompany =
-      companies?.length > 0 &&
-      companies?.filter((company) => {
-        if (!searchCompanyByText) return true;
-        return company?.name
-          .toLowerCase()
-          .includes(searchCompanyByText.toLowerCase());
-      });
+      (companies?.length > 0 &&
+        companies?.filter((company) => {
+          if (!searchCompanyByText) return true;
+          return company?.name
+            .toLowerCase()
+            .includes(searchCompanyByText.toLowerCase());
+        })) ||
+      [];
 
     setFilterCompany(filteredCompany);
   }, [companies, searchCompanyByText]);
@@ -48,7 +49,7 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {companies?.length <= 0 ? (
+          {filterCompany?.length <= 0 ? (
             <span>You have not registered any company yet</span>
           ) : (
             filterCompany?.map((company) => (

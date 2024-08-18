@@ -10,6 +10,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import Companies from "@/components/admin/Companies";
 import CompanyCreate from "@/components/admin/CompanyCreate";
 import CompanySetup from "@/components/admin/CompanySetup";
+import AdminJobs from "@/components/admin/AdminJobs";
+import PostAdminJob from "@/components/admin/PostAdminJob";
+import Applicants from "@/components/admin/Applicants";
 
 export const router = createBrowserRouter([
   {
@@ -57,5 +60,17 @@ export const router = createBrowserRouter([
   {
     path: "admin/companies/:id",
     element: <CompanySetup />,
+  },
+  {
+    path: "admin/jobs",
+    element: <AdminJobs />,
+  },
+  {
+    path: "admin/jobs/create",
+    element: <PostAdminJob />,
+  },
+  {
+    path: "admin/jobs/:id/applicants",
+    element: <Applicants />,
   },
 ]);
