@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((state) => state.auth);
+  const { loading, user, token } = useSelector((state) => state.auth);
 
   const [input, setInput] = useState({
     fullName: "",
@@ -50,11 +50,11 @@ const SignUp = () => {
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       });
       if (res.data?.success) {
-        console.log("zitu", res);
         navigate("/login");
         toast.success(res.data.message);
       }

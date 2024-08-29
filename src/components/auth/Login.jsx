@@ -1,4 +1,4 @@
-import { setLoading, setUser } from "@/redux/authSlice";
+import { setLoading, setUser, setToken } from "@/redux/authSlice";
 import { USER_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
@@ -38,7 +38,7 @@ const Login = () => {
         withCredentials: true,
       });
       if (res.data?.success) {
-        dispatch(setUser(res.data?.user));
+        dispatch(setUser(res.data?.user), setToken(res.data?.token));
         navigate("/", { replace: true });
         toast.success(res.data.message);
       }
