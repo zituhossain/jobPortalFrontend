@@ -23,7 +23,7 @@ const PostAdminJob = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { companies } = useSelector((store) => store.company);
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, token } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
     title: "",
@@ -54,6 +54,7 @@ const PostAdminJob = () => {
       const res = await axios.post(`${JOB_API_END_POINT}/postJob`, input, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       });
