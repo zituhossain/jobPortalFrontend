@@ -7,13 +7,15 @@ import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utils/constant";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSingleCompany } from "@/redux/companySlice";
+import { setToken } from "@/redux/authSlice";
 
 const CompanyCreate = () => {
   const navigate = useNavigate();
   const [companyName, setCompanyName] = useState();
   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.auth);
 
   const registerNewCompany = async () => {
     try {
@@ -23,12 +25,16 @@ const CompanyCreate = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
       );
       if (res?.data?.success) {
-        dispatch(setSingleCompany(res.data?.company));
+        dispatch(
+          setSingleCompany(res.data?.company),
+          setToken(res.data?.token)
+        );
         toast.success(res.data.message);
         const companyId = res?.data?.company?._id;
         navigate(`/admin/companies/${companyId}`);

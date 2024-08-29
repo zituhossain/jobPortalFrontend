@@ -1,4 +1,4 @@
-import { setLoading, setUser, setToken } from "@/redux/authSlice";
+import { setLoading, setToken, setUser } from "@/redux/authSlice";
 import { USER_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import { Loader2 } from "lucide-react";

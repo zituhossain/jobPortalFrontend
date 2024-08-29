@@ -4,7 +4,9 @@ const userFromStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
 
-const tokenFromStorage = localStorage.getItem("token") || null;
+const tokenFromStorage = localStorage.getItem("token")
+  ? localStorage.getItem("token")
+  : null;
 
 const authSlice = createSlice({
   name: "auth",
