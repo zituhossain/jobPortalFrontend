@@ -9,7 +9,7 @@ import { COMPANY_API_END_POINT } from "@/utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "@/redux/authSlice";
+import { setLoading, setToken } from "@/redux/authSlice";
 import useGetCompanyById from "@/hooks/useGetCompanyById";
 
 const CompanySetup = () => {
@@ -26,7 +26,7 @@ const CompanySetup = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, token } = useSelector((store) => store.auth);
   const { singleCompany } = useSelector((store) => store.company);
 
   const changeEventHandler = (e) => {
@@ -55,11 +55,13 @@ const CompanySetup = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
       );
       if (res.data?.success) {
+        dispatch(setToken(res.data?.token));
         toast.success(res.data.message);
         navigate("/admin/companies");
       }
