@@ -17,7 +17,6 @@ const useGetAllJobs = () => {
           `${JOB_API_END_POINT}/getAllJobs?keyword=${searchedQuery}`,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${token}`,
             },
             withCredentials: true,

@@ -20,7 +20,6 @@ const Applicants = () => {
           `${APPLICATION_API_END_POINT}/${params.id}/applicants`,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${token}`,
             },
             withCredentials: true,

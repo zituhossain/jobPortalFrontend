@@ -13,7 +13,6 @@ const useGetAllAdminJobs = () => {
       try {
         const res = await axios.get(`${JOB_API_END_POINT}/getAdminJobs`, {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,

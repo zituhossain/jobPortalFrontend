@@ -13,7 +13,6 @@ const useGetAllCompanies = () => {
       try {
         const res = await axios.get(`${COMPANY_API_END_POINT}/get`, {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,

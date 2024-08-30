@@ -29,7 +29,6 @@ const JobDescription = () => {
         `${APPLICATION_API_END_POINT}/apply/${jobId}`,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
@@ -57,7 +56,6 @@ const JobDescription = () => {
       try {
         const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
