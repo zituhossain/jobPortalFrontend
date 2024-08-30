@@ -25,6 +25,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 
   const { user, loading } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+    const { token } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
     fullName: user?.fullName,
@@ -64,6 +65,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
