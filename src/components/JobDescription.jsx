@@ -18,6 +18,8 @@ const JobDescription = () => {
   const [isApplied, setIsApplied] = useState(isInitiallyApplied);
 
   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.auth);
+
   const params = useParams();
   const jobId = params.id;
 
@@ -25,7 +27,13 @@ const JobDescription = () => {
     try {
       const res = await axios.get(
         `${APPLICATION_API_END_POINT}/apply/${jobId}`,
-        { withCredentials: true }
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
       );
       if (res.data?.success) {
         setIsApplied(true);
@@ -48,6 +56,10 @@ const JobDescription = () => {
     const fetchsingleJob = async () => {
       try {
         const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
           withCredentials: true,
         });
         if (res.data?.success) {

@@ -16,7 +16,6 @@ const Jobs = () => {
 
   useEffect(() => {
     // Update filtered jobs based on searchedQuery
-
     const filteredJobs =
       (allJobs?.length > 0 &&
         allJobs.filter((job) => {

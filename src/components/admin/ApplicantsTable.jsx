@@ -17,13 +17,21 @@ import { toast } from "sonner";
 const shortListingStatus = ["Accepted", "Rejected"];
 const ApplicantsTable = () => {
   const { applicants } = useSelector((store) => store.application);
+  const { token } = useSelector((store) => store.auth);
 
   const statusHandler = async (status, id) => {
     try {
       axios.defaults.withCredentials = true;
       const res = await axios.post(
         `${APPLICATION_API_END_POINT}/status/${id}/update`,
-        { status }
+        { status },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
       );
       console.log(res);
       if (res.data?.success) {

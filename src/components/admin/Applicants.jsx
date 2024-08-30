@@ -10,6 +10,7 @@ import { setApplicants } from "@/redux/applicationSlice";
 const Applicants = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.auth);
   const { applicants } = useSelector((store) => store.application);
 
   useEffect(() => {
@@ -17,7 +18,13 @@ const Applicants = () => {
       try {
         const res = await axios.get(
           `${APPLICATION_API_END_POINT}/${params.id}/applicants`,
-          { withCredentials: true }
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+          }
         );
 
         dispatch(setApplicants(res?.data?.job));
