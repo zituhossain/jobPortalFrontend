@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const useGetAllJobs = () => {
   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.auth);
+
   const { searchedQuery } = useSelector((store) => store.job);
 
   useEffect(() => {
@@ -14,6 +16,10 @@ const useGetAllJobs = () => {
         const res = await axios.get(
           `${JOB_API_END_POINT}/getAllJobs?keyword=${searchedQuery}`,
           {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
             withCredentials: true,
           }
         );

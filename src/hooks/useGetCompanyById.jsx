@@ -2,10 +2,11 @@ import { setSingleCompany } from "@/redux/companySlice";
 import { COMPANY_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useGetCompanyById = (companyId) => {
   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.auth);
 
   useEffect(() => {
     const fetchSingleCompany = async () => {
@@ -15,8 +16,8 @@ const useGetCompanyById = (companyId) => {
           {
             withCredentials: true,
             headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-          },
+              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
           }
         );
         if (res.data?.success) {
