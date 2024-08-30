@@ -61,7 +61,6 @@ const CompanySetup = () => {
         }
       );
       if (res.data?.success) {
-        dispatch(setToken(res.data?.token));
         toast.success(res.data.message);
         navigate("/admin/companies");
       }
