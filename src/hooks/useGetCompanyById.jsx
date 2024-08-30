@@ -14,6 +14,9 @@ const useGetCompanyById = (companyId) => {
           `${COMPANY_API_END_POINT}/get/${companyId}`,
           {
             withCredentials: true,
+            headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
           }
         );
         if (res.data?.success) {
