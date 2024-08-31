@@ -1,16 +1,16 @@
-import { ArrowLeft, Loader2 } from "lucide-react";
-import Navbar from "../shared/Navbar";
-import { Button } from "../ui/button";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import useGetCompanyById from "@/hooks/useGetCompanyById";
+import { setLoading } from "@/redux/authSlice";
 import { COMPANY_API_END_POINT } from "@/utils/constant";
+import axios from "axios";
+import { ArrowLeft, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setToken } from "@/redux/authSlice";
-import useGetCompanyById from "@/hooks/useGetCompanyById";
+import Navbar from "../shared/Navbar";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 const CompanySetup = () => {
   const params = useParams();
